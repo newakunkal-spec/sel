@@ -510,3 +510,480 @@ const organelleData = {
         ]
     }
 };
+// ==================== STATE ====================
+let currentTheme = localStorage.getItem('biocell-theme') || 'light';
+let completedOrganelles = JSON.parse(localStorage.getItem('biocell-completed') || '[]');
+let activeOrganelle = null;
+let quizScore = 0;
+let currentQuizIndex = 0;
+let quizAnswered = false;
+
+// ==================== DOM ELEMENTS ====================
+const sidebar = document.getElementById('sidebar');
+const mobileToggle = document.getElementById('mobile-toggle');
+const themeToggle = document.getElementById('theme-toggle');
+const searchOverlay = document.getElementById('search-overlay');
+const searchInput = document.getElementById('search-input');
+const searchResults = document.getElementById('search-results');
+const btnSearch = document.getElementById('btn-search');
+const searchClose = document.getElementById('search-close');
+const infoPanel = document.getElementById('info-panel');
+const infoPanelOverlay = document.getElementById('info-panel-overlay');
+const infoPanelContent = document.getElementById('info-panel-content');
+const infoPanelClose = document.getElementById('info-panel-close');
+const progressBar = document.getElementById('progress-bar');
+const progressPercent = document.getElementById('progress-percent');
+const progressOrganelles = document.getElementById('progress-organelles');
+const materiGrid = document.getElementById('materi-grid');
+const particleCanvas = document.getElementById('particle-canvas');
+const mouseGlow = document.getElementById('mouse-glow');
+
+// ==================== PARTICLE SYSTEM ====================
+function initParticles() {
+    const ctx = particleCanvas.getContext('2d');
+    let particles = [];
+    let width, height;
+    
+    function resize() {
+        width = particleCanvas.width = window.innerWidth;
+        height = particleCanvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+    
+    const particleCount = window.innerWidth < 768 ? 30 : 60;
+    
+    for (let i = 0; i < particleCount; i++) {
+        particles.push({
+            x: Math.random() * width,
+            y: Math.random() * height,
+            vx: (Math.random() - 0.5) * 0.5,
+            vy: (Math.random() - 0.5) * 0.5,
+            radius: Math.random() * 2 + 1,
+            opacity: Math.random() * 0.5 + 0.2
+        });
+    }
+    
+    function animate() {
+        ctx.clearRect(0, 0, width, height);
+        
+        particles.forEach((p, i) => {
+            p.x += p.vx;
+            p.y += p.vy;
+            
+            if (p.x < 0 || p.x > width) p.vx *= -1;
+            if (p.y < 0 || p.y > height) p.vy *= -1;
+            
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(56, 189, 248, ${p.opacity})`;
+            ctx.fill();
+            
+            for (let j = i + 1; j < particles.length; j++) {
+                const dx = particles[j].x - p.x;
+                const dy = particles[j].y - p.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                
+                if (dist < 120) {
+                    ctx.beginPath();
+                    ctx.moveTo(p.x, p.y);
+                    ctx.lineTo(particles[j].x, particles[j].y);
+                    ctx.strokeStyle = `rgba(56, 189, 248, ${0.1 * (1 - dist / 120)})`;
+                    ctx.lineWidth = 0.5;
+                    ctx.stroke();
+                }
+            }
+        });
+        
+        requestAnimationFrame(animate);
+    }
+    animate();
+}
+
+// ==================== MOUSE GLOW ====================
+function initMouseGlow() {
+    document.addEventListener('mousemove', (e) => {
+        mouseGlow.style.left = e.clientX + 'px';
+        mouseGlow.style.top = e.clientY + 'px';
+    });
+}
+
+// ==================== THEME TOGGLE ====================
+function initTheme() {
+    document.documentElement.setAttribute('data-theme', currentTheme);
+    updateThemeIcon();
+    
+    themeToggle.addEventListener('click', () => {
+        currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', currentTheme);
+        localStorage.setItem('biocell-theme', currentTheme);
+        updateThemeIcon();
+    });
+}
+
+function updateThemeIcon() {
+    const icon = themeToggle.querySelector('.theme-icon');
+    const label = themeToggle.querySelector('.theme-label');
+    if (currentTheme === 'dark') {
+        icon.textContent = '☀️';
+        label.textContent = 'Mode Terang';
+    } else {
+        icon.textContent = '🌙';
+        label.textContent = 'Mode Gelap';
+    }
+}
+
+// ==================== MOBILE MENU ====================
+function initMobileMenu() {
+    mobileToggle.addEventListener('click', () => {
+        mobileToggle.classList.toggle('active');
+        sidebar.classList.toggle('open');
+    });
+    
+    document.querySelectorAll('.nav-item').forEach(item => {
+        item.addEventListener('click', () => {
+            if (window.innerWidth <= 768) {
+                mobileToggle.classList.remove('active');
+                sidebar.classList.remove('open');
+            }
+        });
+    });
+}
+
+// ==================== SEARCH ====================
+function initSearch() {
+    btnSearch.addEventListener('click', openSearch);
+    searchClose.addEventListener('click', closeSearch);
+    
+    searchOverlay.addEventListener('click', (e) => {
+        if (e.target === searchOverlay) closeSearch();
+    });
+    
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeSearch();
+        if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+            e.preventDefault();
+            openSearch();
+        }
+    });
+    
+    searchInput.addEventListener('input', handleSearch);
+}
+
+function openSearch() {
+    searchOverlay.classList.add('active');
+    searchInput.value = '';
+    searchInput.focus();
+    searchResults.innerHTML = '';
+}
+
+function closeSearch() {
+    searchOverlay.classList.remove('active');
+}
+
+function handleSearch(e) {
+    const query = e.target.value.toLowerCase().trim();
+    
+    if (!query) {
+        searchResults.innerHTML = '';
+        return;
+    }
+    
+    const matches = Object.entries(organelleData).filter(([id, data]) => {
+        return data.name.toLowerCase().includes(query) || 
+               data.subtitle.toLowerCase().includes(query) ||
+               id.toLowerCase().includes(query);
+    });
+    
+    if (matches.length === 0) {
+        searchResults.innerHTML = '<div class="search-empty">Tidak ada hasil ditemukan</div>';
+        return;
+    }
+    
+    searchResults.innerHTML = matches.map(([id, data]) => `
+        <div class="search-result-item" data-id="${id}">
+            <span class="search-result-color" style="background:${data.color}"></span>
+            <div>
+                <div class="search-result-name">${data.name}</div>
+                <div class="search-result-desc">${data.subtitle}</div>
+            </div>
+        </div>
+    `).join('');
+    
+    searchResults.querySelectorAll('.search-result-item').forEach(item => {
+        item.addEventListener('click', () => {
+            const id = item.dataset.id;
+            closeSearch();
+            openOrganellePanel(id);
+            document.getElementById('cell-section').scrollIntoView({ behavior: 'smooth' });
+        });
+    });
+}
+
+// ==================== PROGRESS TRACKING ====================
+function initProgress() {
+    updateProgress();
+}
+
+function updateProgress() {
+    const total = Object.keys(organelleData).length;
+    const completed = completedOrganelles.length;
+    const percent = Math.round((completed / total) * 100);
+    
+    progressBar.style.width = percent + '%';
+    progressPercent.textContent = percent + '%';
+    
+    progressOrganelles.innerHTML = Object.keys(organelleData).map(id => {
+        const isCompleted = completedOrganelles.includes(id);
+        return `<div class="progress-dot ${isCompleted ? 'completed' : ''}" data-id="${id}" title="${organelleData[id].name}"></div>`;
+    }).join('');
+    
+    progressOrganelles.querySelectorAll('.progress-dot').forEach(dot => {
+        dot.addEventListener('click', () => {
+            const id = dot.dataset.id;
+            openOrganellePanel(id);
+        });
+    });
+}
+
+function markOrganelleComplete(id) {
+    if (!completedOrganelles.includes(id)) {
+        completedOrganelles.push(id);
+        localStorage.setItem('biocell-completed', JSON.stringify(completedOrganelles));
+        updateProgress();
+        updateMateriCards();
+    }
+}
+
+// ==================== ORGANELLE INTERACTIONS ====================
+function initOrganelleInteractions() {
+    const organelles = document.querySelectorAll('.organelle');
+    const tooltip = document.getElementById('organelle-tooltip');
+    const cellWrapper = document.getElementById('cell-wrapper');
+    
+    organelles.forEach(organelle => {
+        const id = organelle.id;
+        const data = organelleData[id];
+        if (!data) return;
+        
+        organelle.addEventListener('mouseenter', (e) => {
+            if (activeOrganelle) return;
+            
+            tooltip.querySelector('.tooltip-name').textContent = data.name;
+            tooltip.classList.add('visible');
+            
+            const rect = organelle.getBoundingClientRect();
+            const wrapperRect = cellWrapper.getBoundingClientRect();
+            tooltip.style.left = (rect.left - wrapperRect.left + rect.width / 2 - tooltip.offsetWidth / 2) + 'px';
+            tooltip.style.top = (rect.top - wrapperRect.top - tooltip.offsetHeight - 10) + 'px';
+        });
+        
+        organelle.addEventListener('mouseleave', () => {
+            tooltip.classList.remove('visible');
+        });
+        
+        organelle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            openOrganellePanel(id);
+        });
+    });
+    
+    infoPanelOverlay.addEventListener('click', closeOrganellePanel);
+    infoPanelClose.addEventListener('click', closeOrganellePanel);
+    
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeOrganellePanel();
+    });
+}
+
+function openOrganellePanel(id) {
+    const data = organelleData[id];
+    if (!data) return;
+    
+    activeOrganelle = id;
+    
+    document.querySelectorAll('.organelle').forEach(el => {
+        if (el.id === id) {
+            el.classList.add('active');
+            el.classList.remove('dimmed');
+        } else {
+            el.classList.remove('active');
+            el.classList.add('dimmed');
+        }
+    });
+    
+    infoPanelContent.innerHTML = `
+        <div class="panel-header">
+            <div class="panel-icon" style="background: linear-gradient(135deg, ${data.color}, ${data.color}88)">${data.icon}</div>
+            <h2 class="panel-title">${data.name}</h2>
+            <p class="panel-subtitle">${data.subtitle}</p>
+        </div>
+        
+        <div class="panel-section">
+            <div class="panel-section-title">Pengertian</div>
+            ${data.pengertian.map(p => `<p class="panel-text">${p}</p>`).join('')}
+        </div>
+        
+        <div class="panel-section">
+            <div class="panel-section-title">Fungsi</div>
+            <ul class="panel-list">
+                ${data.fungsi.map(f => `<li>${f}</li>`).join('')}
+            </ul>
+        </div>
+        
+        <div class="panel-section">
+            <div class="panel-section-title">Cara Kerja</div>
+            <p class="panel-text">${data.caraKerja}</p>
+        </div>
+        
+        <div class="panel-section">
+            <div class="panel-section-title">Struktur</div>
+            <p class="panel-text">${data.struktur}</p>
+        </div>
+        
+        <div class="panel-section">
+            <div class="panel-section-title">Letak</div>
+            <p class="panel-text">${data.letak}</p>
+        </div>
+        
+        <div class="panel-section">
+            <div class="panel-section-title">Analogi</div>
+            <div class="panel-analogy">
+                <div class="panel-analogy-label">Analogi Kehidupan</div>
+                <div class="panel-analogy-text">${data.analogi}</div>
+            </div>
+        </div>
+        
+        <div class="panel-section">
+            <div class="panel-section-title">Fakta Menarik</div>
+            <div class="panel-facts">
+                ${data.fakta.map((f, i) => `
+                    <div class="panel-fact">
+                        <span class="fact-number">${i + 1}</span>
+                        <span class="fact-text">${f}</span>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+        
+        <div class="panel-section">
+            <div class="panel-section-title">Ringkasan</div>
+            <div class="panel-summary">
+                <div class="panel-summary-title">Poin Penting</div>
+                <div class="panel-summary-text">${data.ringkasan}</div>
+            </div>
+        </div>
+        
+        <div class="panel-section panel-quiz">
+            <div class="panel-section-title">Quiz Mini</div>
+            ${data.quiz.map((q, qi) => `
+                <div class="quiz-mini" data-qi="${qi}">
+                    <div class="quiz-mini-question">${qi + 1}. ${q.q}</div>
+                    <div class="quiz-mini-options">
+                        ${q.options.map((opt, oi) => `
+                            <button class="quiz-mini-option" data-correct="${oi === q.correct}">${opt}</button>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('')}
+        </div>
+    `;
+    
+    infoPanelContent.querySelectorAll('.quiz-mini-option').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const parent = this.closest('.quiz-mini-options');
+            const isCorrect = this.dataset.correct === 'true';
+            
+            parent.querySelectorAll('.quiz-mini-option').forEach(b => {
+                b.disabled = true;
+                if (b.dataset.correct === 'true') b.classList.add('correct');
+            });
+            
+            if (!isCorrect) this.classList.add('wrong');
+        });
+    });
+    
+    infoPanelOverlay.classList.add('active');
+    infoPanel.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    
+    setTimeout(() => markOrganelleComplete(id), 5000);
+}
+
+function closeOrganellePanel() {
+    activeOrganelle = null;
+    
+    document.querySelectorAll('.organelle').forEach(el => {
+        el.classList.remove('active', 'dimmed');
+    });
+    
+    infoPanelOverlay.classList.remove('active');
+    infoPanel.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+// ==================== MATERI GRID ====================
+function initMateriGrid() {
+    materiGrid.innerHTML = Object.entries(organelleData).map(([id, data]) => {
+        const isCompleted = completedOrganelles.includes(id);
+        return `
+            <div class="materi-card ${isCompleted ? 'completed' : ''}" data-id="${id}" style="--card-color: ${data.color}">
+                <div class="materi-card-header">
+                    <div class="materi-card-icon" style="background: ${data.color}22; color: ${data.color}">${data.icon}</div>
+                    <h3 class="materi-card-title">${data.name}</h3>
+                </div>
+                <p class="materi-card-desc">${data.subtitle}</p>
+                <div class="materi-card-meta">
+                    <span>${data.fungsi.length} fungsi</span>
+                    <span>•</span>
+                    <span>${data.fakta.length} fakta</span>
+                    <span class="materi-card-arrow">→</span>
+                </div>
+            </div>
+        `;
+    }).join('');
+    
+    materiGrid.querySelectorAll('.materi-card').forEach(card => {
+        card.addEventListener('click', () => {
+            const id = card.dataset.id;
+            openOrganellePanel(id);
+        });
+    });
+}
+
+function updateMateriCards() {
+    materiGrid.querySelectorAll('.materi-card').forEach(card => {
+        const id = card.dataset.id;
+        if (completedOrganelles.includes(id)) {
+            card.classList.add('completed');
+        }
+    });
+}
+
+// ==================== QUIZ SECTION ====================
+const quizQuestions = [
+    {
+        q: 'Organel manakah yang disebut sebagai "pembangkit listrik sel"?',
+        options: ['Nukleus', 'Mitokondria', 'Ribosom', 'Badan Golgi'],
+        correct: 1,
+        explanation: 'Mitokondria menghasilkan ATP, molekul energi utama sel, melalui respirasi seluler.'
+    },
+    {
+        q: 'Struktur apa yang membentuk gelendong pembelah selama mitosis?',
+        options: ['Lisosom', 'Sentriol', 'Vesikel', 'Peroksisom'],
+        correct: 1,
+        explanation: 'Sentriol berfungsi sebagai pusat organisasi mikrotubulus dan membentuk gelendong pembelah.'
+    },
+    {
+        q: 'Proses pencernaan organel tua oleh lisosom disebut?',
+        options: ['Fagositosis', 'Autofagi', 'Pinositosis', 'Eksositosis'],
+        correct: 1,
+        explanation: 'Autofagi adalah proses di mana lisosom mendegradasi komponen sel yang rusak atau tua.'
+    }
+];
+
+function initQuiz() {
+    const btnStart = document.getElementById('btn-start-quiz');
+    const btnRetry = document.getElementById('btn-retry-quiz');
+    
+    btnStart.addEventListener('click', startQuiz
