@@ -329,3 +329,184 @@ const organelleData = {
             { q: 'Mitokondria memiliki DNA yang diwariskan dari?', options: ['Ayah', 'Ibu', 'Keduanya', 'Tidak diwariskan'], correct: 1 }
         ]
     },
+'lisosom': {
+        name: 'Lisosom',
+        subtitle: 'Tempat Pembuangan dan Daur Ulang Sel',
+        icon: '🗑️',
+        color: '#db2777',
+        pengertian: [
+            'Lisosom adalah organel kecil yang berisi enzim pencernaan (enzim hidrolitik) yang mampu memecah berbagai macam biomolekul termasuk protein, lipid, karbohidrat, dan asam nukleat. Lisosom sering disebut sebagai "kantong pencernaan" atau "tempat pembuangan" sel.',
+            'Lisosom ditemukan oleh ilmuwan Belgia Christian de Duve pada tahun 1955. Nama "lisosom" berasal dari bahasa Yunani "lysis" (pemecahan) dan "soma" (tubuh).',
+            'Membran lisosom unik karena sangat kaya akan glikoprotein yang melindungi membran dari degradasi oleh enzim-enzimnya sendiri. pH di dalam lisosom sangat asam (sekitar 4.5-5.0).',
+            'Lisosom memiliki beberapa jenis: lisosom primer (baru terbentuk dari badan Golgi), lisosom sekunder (telah bergabung dengan materi yang akan dicerna), dan sisa badan.'
+        ],
+        fungsi: [
+            'Mencerna materi asing yang masuk ke sel melalui fagositosis',
+            'Mendegradasi organel tua dan rusak melalui autofagi',
+            'Mencerna nutrisi yang diambil sel melalui pinositosis',
+            'Membantu pembentukan tulang melalui proses remodeling',
+            'Berperan dalam apoptosis (kematian sel terprogram)'
+        ],
+        caraKerja: 'Lisosom bekerja dengan menggabungkan diri dengan vesikel yang mengandung materi yang akan dicerna. Enzim hidrolitik di dalam lisosom memecah materi menjadi komponen-komponen sederhana yang dapat didaur ulang oleh sel. Pada autofagi, lisosom menyelimuti organel tua dengan membrannya dan mencernanya.',
+        struktur: 'Lisosom berbentuk bulat atau oval dengan diameter 0.1-1.2 mikrometer. Membran lisosom tunggal mengandung protein transport proton (V-ATPase) yang memompa H+ ke dalam untuk menjaga pH asam. Di dalamnya terdapat lebih dari 50 jenis enzim hidrolitik.',
+        letak: 'Lisosom tersebar di seluruh sitoplasma, biasanya bergerak menuju area di mana pencernaan diperlukan. Pada fagosit, lisosom terkonsentrasi di dekat membran sel tempat fagositosis terjadi.',
+        fakta: [
+            'Ada lebih dari 50 jenis enzim hidrolitik di dalam setiap lisosom',
+            'Penyakit penyimpanan lisosom seperti Tay-Sachs terjadi ketika enzim lisosom tertentu tidak berfungsi',
+            'Lisosom dapat hidup selama beberapa hari hingga beberapa minggu dalam sel',
+            'Sisa badan lisosom yang menumpuk menyebabkan bintik-bintik penuaan (lipofuscin)',
+            'Beberapa sel, seperti fagosit, memiliki ratusan lisosom untuk melawan infeksi'
+        ],
+        analogi: 'Lisosom seperti fasilitas daur ulang dan tempat pembuangan sampah kota. Truk sampah (vesikel) mengangkut sampah (materi tak terpakai) ke fasilitas, di mana mesin-mesin canggih (enzim hidrolitik) memilah dan mendaur ulang material yang masih berguna.',
+        ringkasan: 'Lisosom adalah kantung enzim pencernaan yang mendegradasi materi asing, organel tua, dan limbah sel. Dengan pH asam dan membran pelindung, lisosom menjaga kebersihan dan kesehatan sel.',
+        quiz: [
+            { q: 'Apa enzim utama dalam lisosom?', options: ['Enzim hidrolitik', 'Enzim respirasi', 'Enzim fotosintesis', 'Enzim transkripsi'], correct: 0 },
+            { q: 'pH di dalam lisosom bersifat?', options: ['Netral', 'Basa', 'Asam', 'Sangat basa'], correct: 2 },
+            { q: 'Proses pencernaan organel tua oleh lisosom disebut?', options: ['Fagositosis', 'Autofagi', 'Pinositosis', 'Eksositosis'], correct: 1 }
+        ]
+    },
+    'sentriol': {
+        name: 'Sentriol',
+        subtitle: 'Pengatur Pembelahan Sel',
+        icon: '🧭',
+        color: '#7c3aed',
+        pengertian: [
+            'Sentriol adalah struktur silindris kecil yang terdapat dalam sel hewan dan berperan penting dalam pembelahan sel. Setiap sel hewan yang normal memiliki sepasang sentriol yang disusun secara tegak lurus satu sama lain, membentuk sentrosom.',
+            'Setiap sentriol memiliki struktur yang sangat teratur, tersusun dari 9 set triple mikrotubulus yang disusun dalam pola silinder. Struktur ini sering digambarkan sebagai "9+0".',
+            'Sentriol berfungsi sebagai pusat organisasi mikrotubulus (MTOC) selama interfase dan membentuk gelendong pembelah selama mitosis dan meiosis. Gelendong pembelah terdiri dari serat-serat protein yang menarik kromosom ke kutub yang berlawanan.',
+            'Selain peranannya dalam pembelahan sel, sentriol juga merupakan dasar pembentukan silia dan flagela. Sentriol yang bermigrasi ke membran sel akan berfungsi sebagai basal body.'
+        ],
+        fungsi: [
+            'Membentuk gelendong pembelah selama mitosis dan meiosis',
+            'Berfungsi sebagai pusat organisasi mikrotubulus (MTOC)',
+            'Membentuk basal body untuk silia dan flagela',
+            'Mengatur posisi organel dalam sel',
+            'Berperan dalam sinyal seluler dan regulasi siklus sel'
+        ],
+        caraKerja: 'Selama pembelahan sel, pasangan sentriol memisah diri dan masing-masing bergerak ke kutub yang berlawanan. Dari setiap sentriol, mikrotubulus tumbuh membentuk gelendong pembelah. Serat kinetokor dari gelendong menempel pada sentromer kromosom dan menariknya ke kutub.',
+        struktur: 'Sentriol berbentuk silinder dengan diameter sekitar 0.2-0.5 mikrometer dan panjang 0.3-0.7 mikrometer. Tersusun dari 9 set triple mikrotubulus yang disusun melingkar. Sentriol berpasangan dalam sentrosom, disusun tegak lurus satu sama lain.',
+        letak: 'Sentriol terletak di dekat nukleus dalam sentrosom. Selama interfase, sentrosom berada di dekat nukleus. Saat sel memasuki mitosis, sentrosom bergerak ke kutub yang berlawanan.',
+        fakta: [
+            'Sentriol pertama kali diamati oleh Theodor Boveri pada tahun 1888',
+            'Sebagian besar sel hewan memiliki tepat satu pasang sentriol',
+            'Sentriol tidak dapat dibuat baru dari nol; mereka harus bereplikasi dari sentriol yang sudah ada',
+            'Sel tumbuhan tingkat tinggi tidak memiliki sentriol tetapi masih dapat membelah dengan normal',
+            'Kelebihan sentriol dapat menyebabkan pembelahan sel yang abnormal dan berkontribusi pada kanker'
+        ],
+        analogi: 'Sentriol seperti pengatur lalu lintas di persimpangan jalan raya. Saat waktu pembelahan (jam sibuk), pengatur lalu lintas berpindah ke ujung jalan dan mengarahkan mobil (kromosom) ke jalur yang benar sehingga lalu lintas berjalan lancar tanpa tabrakan.',
+        ringkasan: 'Sentriol adalah struktur silindris yang membentuk gelendong pembelah selama mitosis dan berfungsi sebagai pusat organisasi mikrotubulus. Terdiri dari 9 triple mikrotubulus, sentriol memastikan pembelahan sel berlangsung dengan teratur.',
+        quiz: [
+            { q: 'Berapa pasang sentriol dalam satu sel hewan?', options: ['1', '2', '3', '4'], correct: 0 },
+            { q: 'Apa fungsi sentriol selama pembelahan sel?', options: ['Menghasilkan energi', 'Membentuk gelendong pembelah', 'Mensintesis protein', 'Mencerna makanan'], correct: 1 },
+            { q: 'Sentriol tersusun dari berapa triple mikrotubulus?', options: ['6', '7', '8', '9'], correct: 3 }
+        ]
+    },
+    'peroksisom': {
+        name: 'Peroksisom',
+        subtitle: 'Pembersih Toksin Sel',
+        icon: '🧪',
+        color: '#4f46e5',
+        pengertian: [
+            'Peroksisom adalah organel kecil yang dibatasi membran tunggal dan berisi enzim oksidatif. Nama "peroksisom" berasal dari fakta bahwa enzim-enzim di dalamnya sering menggunakan oksigen molekuler untuk menghasilkan hidrogen peroksida (H2O2).',
+            'Fungsi utama peroksisom adalah melakukan reaksi oksidatif yang melibatkan transfer hidrogen dari substrat ke oksigen, menghasilkan hidrogen peroksida. Meskipun H2O2 bersifat racun, peroksisom juga mengandung enzim katalase yang dengan cepat mengubah H2O2 menjadi air dan oksigen.',
+            'Pada sel hewan, peroksisom berperan penting dalam metabolisme asam lemak rantai sangat panjang dan asam amino. Mereka juga membantu dalam sintesis lipid khusus seperti plasmalogen yang merupakan komponen penting membran saraf dan otak.',
+            'Peroksisom berbeda dari mitokondria dalam hal bahwa mereka tidak menghasilkan ATP. Peroksisom juga tidak memiliki DNA atau ribosom sendiri; semua protein peroksisom disintesis di ribosom bebas di sitoplasma.'
+        ],
+        fungsi: [
+            'Mengoksidasi asam lemak rantai sangat panjang dan asam amino',
+            'Mendetoksifikasi hidrogen peroksida menggunakan enzim katalase',
+            'Membantu sintesis lipid khusus seperti plasmalogen',
+            'Berperan dalam metabolisme kolesterol dan asam empedu',
+            'Menguraikan purin menjadi asam urat'
+        ],
+        caraKerja: 'Peroksisom bekerja dengan mengimpor substrat melalui protein transport membran. Enzim oksidase mengoksidasi substrat dan menghasilkan H2O2. Enzim katalase kemudian mengubah H2O2 yang berbahaya menjadi air dan oksigen yang tidak berbahaya. Satu molekul katalase dapat menguraikan jutaan molekul H2O2 per detik.',
+        struktur: 'Peroksisom berbentuk bulat atau oval dengan diameter 0.1-1.5 mikrometer. Membran tunggal mengandung protein transport untuk mengimpor protein dan substrat. Di dalamnya terdapat matriks yang mengandung enzim oksidase, katalase, dan enzim metabolisme lainnya.',
+        letak: 'Peroksisom tersebar di seluruh sitoplasma, biasanya berjumlah ratusan hingga ribuan per sel. Pada sel hati dan ginjal, peroksisom sangat melimpah karena peranannya dalam detoksifikasi.',
+        fakta: [
+            'Peroksisom dapat berkembang biak dengan membelah diri seperti bakteri',
+            'Penyakit adrenoleukodistrofi (ALD) disebabkan oleh kerusakan peroksisom',
+            'Katalase dalam peroksisom adalah salah satu enzim paling efisien di alam',
+            'Peroksisom pada tumbuhan memiliki peran tambahan dalam fotorespirasi',
+            'Jumlah peroksisom dapat meningkat ketika sel terpapar alkohol atau obat-obatan'
+        ],
+        analogi: 'Peroksisom seperti stasiun pemurnian air di kota. Air kotor yang mengandung kontaminan (asam lemak, racun) masuk ke stasiun, diolah dengan proses oksidasi, dan kontaminan berbahaya diubah menjadi air bersih dan oksigen yang aman menggunakan filter khusus (katalase).',
+        ringkasan: 'Peroksisom adalah organel yang mengoksidasi asam lemak dan racun menggunakan oksigen, kemudian menguraikan hidrogen peroksida berbahaya dengan katalase. Organel vital untuk metabolisme lipid dan detoksifikasi.',
+        quiz: [
+            { q: 'Enzim apa yang menguraikan H2O2 dalam peroksisom?', options: ['Amilase', 'Katalase', 'Lipase', 'Protease'], correct: 1 },
+            { q: 'Produk sampingan utama reaksi di peroksisom adalah?', options: ['CO2', 'H2O2', 'O2', 'ATP'], correct: 1 },
+            { q: 'Peroksisom tidak memiliki?', options: ['Membran', 'Enzim', 'DNA', 'Protein'], correct: 2 }
+        ]
+    },
+    'vesikel': {
+        name: 'Vesikel',
+        subtitle: 'Kurir Pengangkut Sel',
+        icon: '📨',
+        color: '#fbbf24',
+        pengertian: [
+            'Vesikel adalah kantung-kantung kecil yang dibatasi membran lipid dan berfungsi sebagai sistem transportasi internal sel. Vesikel dapat dibayangkan sebagai truk-truk kecil yang mengangkut barang dari satu lokasi ke lokasi lain di dalam sel.',
+            'Vesikel terbentuk melalui proses budding (bertunas) dari membran organel seperti REK, Badan Golgi, atau membran plasma. Proses ini melibatkan pelengkungan membran dan pemisahan vesikel yang baru terbentuk.',
+            'Ada berbagai jenis vesikel dengan fungsi spesifik: vesikel transport, vesikel sekretori, vesikel endositik, dan vesikel sinaptik. Setiap jenis memiliki protein permukaan spesifik yang menentukan tujuannya.',
+            'Proses pembentukan dan fusi vesikel sangat teratur. Protein pada permukaan vesikel (v-SNARE) berinteraksi dengan protein pada membran target (t-SNARE) untuk memastikan vesikel berfusi dengan organel atau membran yang benar.'
+        ],
+        fungsi: [
+            'Mengangkut protein dan lipid antar organel dalam sel',
+            'Mengemas dan mengirim materi untuk ekskresi keluar sel',
+            'Membawa materi dari luar sel ke dalam melalui endositosis',
+            'Menyimpan dan melepaskan neurotransmitter di sel saraf',
+            'Berpartisipasi dalam daur ulang membran sel'
+        ],
+        caraKerja: 'Vesikel terbentuk dari membran organel melalui proses budding yang didorong oleh protein pelengkung seperti klatrin. Setelah terbentuk, vesikel bergerak di sepanjang mikrotubulus dengan bantuan motor protein (kinesin dan dinein). Ketika sampai di tujuan, vesikel berfusi dengan membran target melalui interaksi SNARE.',
+        struktur: 'Vesikel berbentuk bulat atau oval dengan diameter 50-200 nanometer. Membran vesikel tersusun dari lapisan ganda fosfolipid dengan protein spesifik (v-SNARE) di permukaan luar. Beberapa vesikel memiliki lapisan protein pelengkung seperti klatrin atau COPI/COPII.',
+        letak: 'Vesikel tersebar di seluruh sitoplasma, bergerak aktif di antara organel. Vesikel transport umumnya ditemukan di dekat REK, Badan Golgi, dan membran plasma. Vesikel sinaptik terkonsentrasi di ujung akson neuron.',
+        fakta: [
+            'Sebuah sel dapat menghasilkan ribuan vesikel setiap menit',
+            'Vesikel bergerak dengan kecepatan sekitar 1-4 mikrometer per detik di sepanjang mikrotubulus',
+            'Neurotransmitter dilepaskan dari vesikel sinaptik dalam waktu kurang dari 1 milidetik',
+            'Virus seperti influenza menggunakan vesikel sel untuk keluar dari sel inang',
+            'Penyakit seperti diabetes tipe 1 terkait dengan gangguan vesikel insulin'
+        ],
+        analogi: 'Vesikel seperti kurir pengantar paket dalam kota. Kurir mengambil barang dari gudang (REK/Badan Golgi), mengangkutnya melalui jalan raya (sitoskeleton) menggunakan kendaraan (motor protein), dan mengantarkannya ke alamat yang tepat dengan menunjukkan ID pengiriman (SNARE).',
+        ringkasan: 'Vesikel adalah kantung membran yang mengangkut materi antar organel dan ke luar sel. Terbentuk dari budding membran dan bergerak menggunakan motor protein, vesikel memastikan distribusi materi yang efisien.',
+        quiz: [
+            { q: 'Vesikel terbentuk dari proses apa?', options: ['Fusi', 'Budding', 'Difusi', 'Osmosis'], correct: 1 },
+            { q: 'Apa fungsi vesikel sekretori?', options: ['Mencerna makanan', 'Mengangkut materi untuk diekskresi', 'Menyimpan energi', 'Mensintesis DNA'], correct: 1 },
+            { q: 'Protein apa yang membantu vesikel berfusi dengan target?', options: ['Klatrin', 'SNARE', 'Kinesin', 'Aktin'], correct: 1 }
+        ]
+    },
+    'vakuola': {
+        name: 'Vakuola Kecil',
+        subtitle: 'Kantong Penyimpanan Sel',
+        icon: '💼',
+        color: '#06b6d4',
+        pengertian: [
+            'Vakuola pada sel hewan jauh lebih kecil dan lebih banyak jumlahnya dibandingkan dengan vakuola besar pada sel tumbuhan. Vakuola hewan sering disebut vakuola kecil atau vesikel vakuolar.',
+            'Vakuola hewan dapat memiliki berbagai fungsi tergantung pada jenis sel. Vakuola makanan (fagosom) terbentuk saat sel menelan partikel makanan. Vakuola kontraktil pada organisme protozoa berfungsi untuk memompa kelebihan air keluar dari sel.',
+            'Berbeda dengan vakuola tumbuhan yang memiliki dinding sel untuk memberikan tekanan turgor, vakuola hewan lebih fleksibel dan dinamis. Vakuola hewan dapat bergerak, berubah ukuran, dan berfusi dengan organel lain dengan cepat.',
+            'Vakuola juga berperan dalam proses endositosis dan eksositosis. Vakuola makanan yang terbentuk dari fagositosis akan bergabung dengan lisosom untuk pencernaan.'
+        ],
+        fungsi: [
+            'Menyimpan nutrisi, ion, dan molekul lainnya',
+            'Membantu dalam pencernaan melalui fagositosis dan pinositosis',
+            'Mengatur tekanan osmotik dan homeostasis air',
+            'Menyimpan produk limbah sementara',
+            'Berperan dalam ekskresi dan sekresi materi'
+        ],
+        caraKerja: 'Vakuola terbentuk dari invaginasi membran sel (endositosis) atau dari badan Golgi. Vakuola makanan bergabung dengan lisosom untuk pencernaan. Vakuola kontraktil mengumpulkan kelebihan air dan secara berkala memompa air keluar melalui kontraksi.',
+        struktur: 'Vakuola hewan berbentuk bulat atau oval dengan diameter bervariasi dari 0.1 hingga beberapa mikrometer. Dibatasi oleh membran tunggal yang disebut tonoplas. Membran vakuola mengandung protein transport untuk mengatur masuk dan keluarnya zat.',
+        letak: 'Vakuola tersebar di seluruh sitoplasma sel hewan. Pada sel yang aktif secara endositosis, vakuola lebih banyak ditemukan di dekat membran sel. Pada protozoa, vakuola kontraktil terletak di dekat membran sel.',
+        fakta: [
+            'Vakuola pada sel hewan jauh lebih kecil dan lebih banyak jumlahnya dibandingkan sel tumbuhan',
+            'Paramecium memiliki vakuola kontraktil yang memompa air setiap 10-20 detik',
+            'Vakuola makanan dapat memiliki pH yang sangat asam untuk membunuh bakteri',
+            'Beberapa sel hewan menggunakan vakuola untuk menyimpan pigmen warna',
+            'Vakuola dapat berfusi satu sama lain untuk membentuk vakuola yang lebih besar'
+        ],
+        analogi: 'Vakuola seperti kantong-kantong plastik berbagai ukuran yang digunakan di rumah. Ada kantong untuk menyimpan makanan (penyimpanan nutrisi), kantong sampah sementara (limbah), dan kantong untuk barang-barang yang akan didaur ulang (autofagi).',
+        ringkasan: 'Vakuola pada sel hewan adalah kantung-kantung kecil untuk penyimpanan, pencernaan, dan homeostasis. Meskipun lebih kecil dari vakuola tumbuhan, vakuola hewan sangat dinamis dan berperan penting dalam berbagai proses seluler.',
+        quiz: [
+            { q: 'Bagaimana ukuran vakuola hewan dibandingkan tumbuhan?', options: ['Lebih besar', 'Lebih kecil dan lebih banyak', 'Sama besar', 'Tidak ada vakuola'], correct: 1 },
+            { q: 'Apa fungsi vakuola kontraktil pada protozoa?', options: ['Menyimpan makanan', 'Memompa kelebihan air', 'Menghasilkan energi', 'Mensintesis protein'], correct: 1 },
+            { q: 'Membran vakuola disebut?', options: ['Membran plasma', 'Tonoplas', 'Membran nukleus', 'Kapsid'], correct: 1 }
+        ]
+    }
+};
